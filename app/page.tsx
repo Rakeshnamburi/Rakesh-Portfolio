@@ -1,6 +1,6 @@
 'use client';
 import { ArrowUpRight, ArrowDown, Code2, Sparkles, Cloud, GraduationCap, Users, Heart, Check, Copy, Mail, Phone, Award, Braces, FileText, School, BriefcaseBusiness, Building2, TicketCheck } from 'lucide-react';
-import {useState} from 'react';
+import {useEffect,useState} from 'react';
 import {Button} from '@/components/ui/button';
 import {Dialog, DialogContent, DialogTitle, DialogDescription} from '@/components/ui/dialog';
 
@@ -23,7 +23,24 @@ const credentials=[
 function External({href,children,className='text-link'}:{href:string;children:React.ReactNode;className?:string}){return <a className={className} href={href} target="_blank" rel="noreferrer">{children}<ArrowUpRight size={15}/></a>}
 export default function Home(){
  const [filter,setFilter]=useState('All work'); const [selected,setSelected]=useState<number|null>(null); const [copied,setCopied]=useState(false); const [copyError,setCopyError]=useState(false);
+ const [showTop,setShowTop]=useState(false);
  const project=selected===null?null:projects[selected];
+ useEffect(()=>{
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const onScroll=()=>setShowTop(window.scrollY>700);
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+  const links=Array.from(document.querySelectorAll<HTMLAnchorElement>('.site-header nav a[href^="#"]'));
+  const sections=links.map(l=>document.querySelector(l.getAttribute('href')||'')).filter((s):s is Element=>!!s&&s.id!=='contact');
+  const navObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){links.forEach(l=>{if(l.getAttribute('href')==='#'+e.target.id)l.setAttribute('aria-current','true');else l.removeAttribute('aria-current')})}})},{rootMargin:'-35% 0px -55% 0px'});
+  sections.forEach(s=>navObserver.observe(s));
+  let revealObserver:IntersectionObserver|undefined;
+  if(!reduce){
+   const targets=document.querySelectorAll('main > .section .section-head, .project-card, .coding-card, .experience-card, .document-card, .academic-summary article, .credential, .community-grid article, .internship-grid article');
+   revealObserver=new IntersectionObserver((entries,obs)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}})},{threshold:.12});
+   targets.forEach(t=>{t.classList.add('reveal');revealObserver!.observe(t)});
+  }
+  return()=>{window.removeEventListener('scroll',onScroll);navObserver.disconnect();revealObserver?.disconnect()};
+ },[]);
  async function copyEmail(){try{await navigator.clipboard.writeText('rakeshnamburi2k4@gmail.com');setCopied(true);setCopyError(false);setTimeout(()=>setCopied(false),2500)}catch{setCopyError(true)}}
  return <>
  <a href="#main" className="skip-link">Skip to content</a>
@@ -73,6 +90,7 @@ export default function Home(){
  <section id="community" className="section wrap"><div className="section-head"><div><p className="eyebrow">07 / BEYOND THE SCREEN</p><h2>Building with <em>people.</em></h2></div><p>Student Activity Centre · KLU</p></div><div className="community-grid"><article><Users size={27}/><div><span className="eyebrow">ELC / TEAM LEAD</span><h3>Helping a team make a difference.</h3><p>Led a team of approximately 20–25 members in college club activities promoting voting awareness and voter registration.</p><span className="community-tag">Leadership · Teamwork · Civic awareness</span></div></article><article><Heart size={27}/><div><span className="eyebrow">SAFE LIFE / MEMBER</span><h3>Small actions. Shared responsibility.</h3><p>Joined Safe Life in my first year and participated in community-awareness activities around health, diseases, and cleanliness.</p><span className="community-tag">Volunteering · Health awareness · Service</span></div></article></div></section>
  <section id="contact" className="contact wrap"><div><p className="eyebrow"><span className="status-dot"/> OPEN TO WORK, COLLABORATE & LEARN</p><h2>Have something in mind?<br/><em>Let’s build it together.</em></h2><p className="hero-copy">I’m open to early-career opportunities in software development, frontend engineering, and AI applications—and ready to grow into new challenges.</p><a className="primary-link" href="mailto:rakeshnamburi2k4@gmail.com">Say hello <ArrowUpRight size={18}/></a></div><div className="contact-links"><External href="https://www.linkedin.com/in/rakesh-namburi-a82a4b262/"><Users size={18}/> LinkedIn</External><External href="https://github.com/Rakeshnamburi"><Code2 size={18}/> GitHub</External><div className="phone-line"><a href="tel:+919392574626"><Phone size={18}/>+91 93925 74626</a></div><div className="email-line"><a href="mailto:rakeshnamburi2k4@gmail.com"><Mail size={18}/>rakeshnamburi2k4@gmail.com</a><Button variant="ghost" size="icon" onClick={copyEmail} aria-label="Copy email address">{copied?<Check size={16}/>:<Copy size={16}/>}</Button></div><span role="status" className="copy-status">{copied?'Email copied':copyError?'Please select and copy the email address above.':''}</span></div></section>
  </main><footer className="footer-card wrap"><div className="footer-brand"><div className="footer-mark">nr<span>.</span></div><p className="eyebrow">SPILTON AI &amp; TECHNOLOGIES</p><p>Founder-led experiments in practical AI, thoughtful interfaces, and useful digital products.</p><div className="footer-socials"><External href="https://www.linkedin.com/in/rakesh-namburi-a82a4b262/"><Users size={15}/> LinkedIn</External><External href="https://github.com/Rakeshnamburi"><Code2 size={15}/> GitHub</External></div></div><div className="footer-column"><h3>Explore</h3><a href="#work">Selected work</a><a href="#about">About Rakesh</a><a href="#experience">Experience</a><a href="#documents">Résumés &amp; credentials</a><a href="#contact">Contact</a></div><div className="footer-column"><h3>Focus areas</h3><span>IT support &amp; issue resolution</span><span>AI &amp; LLM applications</span><span>Full-stack development</span><span>AWS &amp; cloud foundations</span></div><div className="footer-column footer-contact"><h3>Contact</h3><a href="tel:+919392574626"><Phone size={16}/>+91 93925 74626</a><a href="mailto:rakeshnamburi2k4@gmail.com"><Mail size={16}/>rakeshnamburi2k4@gmail.com</a><a href="https://www.linkedin.com/in/rakesh-namburi-a82a4b262/" target="_blank" rel="noreferrer"><Users size={16}/>LinkedIn profile</a><a href="#contact">Open to opportunities <ArrowUpRight size={15}/></a></div><div className="footer-bottom"><span>© 2026 Namburi Rakesh</span><span>Support. Build. Keep learning.</span><a href="#">Back to top ↑</a></div></footer>
+ <button type="button" className={showTop?'back-to-top show':'back-to-top'} aria-label="Back to top" onClick={()=>window.scrollTo({top:0,behavior:'smooth'})}><ArrowDown size={18} style={{transform:'rotate(180deg)'}}/></button>
  <Dialog open={selected!==null} onOpenChange={open=>{if(!open)setSelected(null)}}><DialogContent className="project-dialog">{project&&<><p className="eyebrow">{project.label}</p><DialogTitle className="dialog-title">{project.name}</DialogTitle><DialogDescription>{project.description}</DialogDescription><div className="dialog-role"><span>MY ROLE</span><strong>{project.role}</strong></div><h4>The problem</h4><p>{project.problem}</p><h4>The approach</h4><p>{project.approach}</p><h4>Project highlights</h4><ul>{project.features.map(f=><li key={f}>{f}</li>)}</ul><div className="tags">{project.stack.map(s=><span key={s}>{s}</span>)}</div><p className="dialog-note">{project.note}</p><div className="project-actions">{project.live&&<External href={project.live}>Open live demo</External>}{project.repo&&<External href={project.repo}>View source</External>}</div></>}</DialogContent></Dialog>
  </>;
 }

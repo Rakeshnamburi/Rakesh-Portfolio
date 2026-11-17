@@ -66,3 +66,67 @@ main{position:relative;isolation:isolate}.cinematic-backdrop{z-index:0}.hero,mai
 @media(max-width:1000px){.site-header nav{gap:18px}.site-header nav>a:not(.nav-contact){font-size:9px}.experience-card{grid-template-columns:135px 1fr}.experience-content{padding:38px 32px}.experience-title{display:block}.experience-flow{justify-content:flex-start;margin-top:24px;max-width:none}.experience-highlights{grid-template-columns:1fr}.experience-highlights li{min-height:auto}.resume-grid-three{grid-template-columns:1fr 1fr}.resume-grid-three .document-card:last-child{grid-column:1/-1}}
 @media(max-width:760px){.site-header nav a[href="#about"],.site-header nav a[href="#documents"]{display:none}.experience-card{grid-template-columns:1fr}.experience-rail{flex-direction:row;padding:22px;border-right:0;border-bottom:1px solid rgba(151,171,255,.17)}.experience-icon{width:52px;height:52px;border-radius:15px}.experience-date{text-align:right;font-size:11px}.experience-content{padding:30px 24px}.experience-title h3{font-size:34px}.experience-company{align-items:flex-start;flex-wrap:wrap;line-height:1.5}.experience-company span{width:100%;padding:0;border:0}.experience-highlights{margin-top:23px}.resume-grid-three{grid-template-columns:1fr}.resume-grid-three .document-card:last-child{grid-column:auto}.resume-grid-three .document-card{min-height:auto}.resume-grid-three .document-card h3,.resume-grid-three .document-card p:not(.eyebrow){min-height:0}}
 @media(max-width:460px){.site-header nav a[href="#experience"]{display:none}.experience-rail{gap:12px}.current-role{font-size:7px}.experience-icon{display:none}.experience-flow{gap:6px}.experience-flow svg{display:none}.experience-title h3{font-size:30px}}
+
+/* UI update: readability, active nav, scroll reveal, back-to-top */
+body .eyebrow{font-size:11px}
+body .project-face .eyebrow,body .identity-panel>.eyebrow,body .featured-label,body .featured-badge .eyebrow{font-size:10.5px}
+body .section-head>p{font-size:13.5px}
+body .hero-bottom{font-size:10.5px}
+body .proof-strip span{font-size:10px}
+body .identity-lines{font-size:13px}
+body .identity-footer{font-size:10px}
+body .founder-identity span{font-size:10px}
+body .founder-identity small{font-size:11px}
+body .hero-project-links{font-size:12px}
+body .hero-project-links>span{font-size:10px}
+body .tags span{font-size:11px}
+body .project-body>.featured-role{font-size:10.5px}
+body .featured-highlights li{font-size:12.5px}
+body .project-face>p{font-size:12.5px}
+body .data-note,body .document-note,body .copy-status{font-size:11.5px}
+body .difficulty,body .chef-facts{font-size:11.5px}
+body .coding-card>p{font-size:12.5px}
+body .coding-top,body .coding-top>a{font-size:11px}
+body .education p,body .education span{font-size:12px}
+body .skill-list>div>p{font-size:13px}
+body .learning-note{font-size:11px}
+body .learning-note span{font-size:12.5px}
+body .academic-summary span{font-size:10.5px}
+body .academic-summary p{font-size:12.5px}
+body .document-card>div>p:not(.eyebrow){font-size:13px}
+body .resume-grid-three .document-card p:not(.eyebrow){font-size:13px}
+body .credential>div>p{font-size:11px}
+body .credential>div>span{font-size:11.5px}
+body .credential-cta{font-size:11.5px}
+body .badge-link span{font-size:10.5px}
+body .badge-link h4{font-size:14px}
+body .internship-grid p{font-size:12.5px}
+body .community-grid p{font-size:13px}
+body .community-tag{font-size:11px}
+body .experience-highlights li{font-size:12.5px}
+body .experience-flow span{font-size:10.5px}
+body .experience-tags span{font-size:10px}
+body .experience-company span{font-size:11px}
+body .current-role{font-size:9.5px}
+body .experience-date{font-size:14px}
+body .footer-column a,body .footer-column span{font-size:12.5px}
+body .footer-socials a{font-size:11.5px}
+body .footer-bottom{font-size:11.5px}
+body .footer-brand p:not(.eyebrow){font-size:13px}
+body .site-header nav{font-size:13.5px}
+body .email-line>a{font-size:13px}
+body .phone-line>a{font-size:13px}
+body .dialog-role span{font-size:10px}
+body .project-dialog p,body .project-dialog li{font-size:13px}
+@media(max-width:640px){body .hero-bottom{font-size:9.5px}body .experience-tags span{font-size:9.5px}body .site-header nav{font-size:12px}}
+
+.site-header nav a[aria-current="true"]:not(.nav-contact){color:var(--primary)}
+.site-header nav a[aria-current="true"]:not(.nav-contact):after{right:0}
+
+.reveal:not(.in){opacity:0;transform:translateY(24px)}
+.reveal.in{animation:revealUp .7s cubic-bezier(.2,.7,.2,1) backwards}
+
+.back-to-top{position:fixed;right:22px;bottom:22px;z-index:60;display:grid;place-items:center;width:46px;height:46px;border:1px solid rgba(234,162,128,.45);border-radius:50%;background:rgba(23,25,24,.82);color:var(--primary);cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.3);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .25s,transform .25s,background .2s,color .2s}
+.back-to-top.show{opacity:1;pointer-events:auto;transform:none}
+.back-to-top:hover{background:var(--primary);color:var(--primary-foreground)}
+@media(max-width:640px){.back-to-top{right:14px;bottom:14px;width:42px;height:42px}}
