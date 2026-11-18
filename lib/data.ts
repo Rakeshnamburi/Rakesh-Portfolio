@@ -40,6 +40,7 @@ export const navItems = [
 ];
 
 export const sectionList = [
+  { id: 'reel', label: 'Showreel' },
   { id: 'work', label: 'Selected work' },
   { id: 'stats', label: 'Numbers' },
   { id: 'about', label: 'About' },

@@ -59,7 +59,7 @@ const personJsonLd = {
 };
 
 /** Applies the saved (or system) theme before first paint to avoid a flash. */
-const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}var r=document.documentElement;r.dataset.theme=t;r.classList.toggle('dark',t==='dark')}catch(e){document.documentElement.dataset.theme='dark';document.documentElement.classList.add('dark')}})();`;
+const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}var r=document.documentElement;r.dataset.theme=t;r.classList.toggle('dark',t==='dark')}catch(e){document.documentElement.dataset.theme='dark';document.documentElement.classList.add('dark')}try{if(!sessionStorage.getItem('boot')&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.setAttribute('data-boot','');sessionStorage.setItem('boot','1')}}catch(e){}})();`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
